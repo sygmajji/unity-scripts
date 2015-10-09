@@ -47,8 +47,8 @@ public class PopupPropertyDrawer : PropertyDrawer {
 		// Draw the popup
 		int index = EditorGUI.Popup(position, 
 	                           		popupAttr.label,
-	                            	stringIndex, 
-		                            popupAttr.options);
+	                            		stringIndex, 
+		                            	popupAttr.options);
 
 		// Save the new index in the attribute
 		property.stringValue = popupAttr.options[index];
