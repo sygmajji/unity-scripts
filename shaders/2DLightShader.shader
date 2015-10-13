@@ -1,10 +1,10 @@
-Shader "Custom/2DLight"
+Shader "Custom/Light"
 {
     Properties
     {
-    	_MainTex ("Diffuse Texture", 2D) = "white" {}
-    	_Particles ("Particles Texture even", 2D) = "black" {}
-    	_Particles2 ("Particles Texture odd", 2D) = "black" {}
+		_MainTex ("Diffuse Texture", 2D) = "white" {}
+		_Particles ("Particles Texture even", 2D) = "black" {}
+		_Particles2 ("Particles Texture odd", 2D) = "black" {}
 		_Color ("Tint", Color) = (1,1,1,1)
 		_ContrastFactor ("Contrast Factor", Float) = 1.0
 		_ColorFactor ("Color Factor", Float) = 0.5
@@ -24,7 +24,7 @@ Shader "Custom/2DLight"
 		
 	    Pass
 	    {
-    	    AlphaTest Greater 0.0	 // Pixel with an alpha of 0 should be ignored
+			AlphaTest Greater 0.0	 // Pixel with an alpha of 0 should be ignored
 			Blend DstColor One // Keep deep black values
 			
 		    CGPROGRAM
@@ -43,17 +43,17 @@ Shader "Custom/2DLight"
 		     
 		    struct VertexInput
 		    {
-			    float4 vertex : POSITION;
-		   		float4 uv : TEXCOORD0;
-		   		fixed4 color : COLOR;
+				float4 vertex : POSITION;
+				float4 uv : TEXCOORD0;
+				fixed4 color : COLOR;
 		    };
 		     
 		    struct VertexOutput
 		    {
-		  		float4 pos : SV_POSITION;
-	    		float4 uv : TEXCOORD0;
-		   		fixed4 color : COLOR;
-		   		float intensity : TEXCOORD1;
+				float4 pos : SV_POSITION;
+				float4 uv : TEXCOORD0;
+				fixed4 color : COLOR;
+				float intensity : TEXCOORD1;
 		    };
 		     
 		    VertexOutput vert(VertexInput input)
@@ -74,7 +74,7 @@ Shader "Custom/2DLight"
 				// Retrieve color from texture and multiply it by tint color and by sprite color
 				// Multiply everything by texture alpha to emulate transparency
 				diffuseColor.rgb = diffuseColor.rgb * _Color.rgb * input.color.rgb;
-                diffuseColor.rgb *= diffuseColor.a * _Color.a * input.color.a;
+				diffuseColor.rgb *= diffuseColor.a * _Color.a * input.color.a;
 				diffuseColor *= input.intensity;
 				
 				return fixed4(diffuseColor);
@@ -85,7 +85,7 @@ Shader "Custom/2DLight"
    		
 	    Pass
 	    {
-    	    AlphaTest Greater 0.0	 // Pixel with an alpha of 0 should be ignored
+			AlphaTest Greater 0.0	 // Pixel with an alpha of 0 should be ignored
 			Blend SrcAlpha One // Add colours to the previous pixels
 
 		    CGPROGRAM
@@ -96,29 +96,29 @@ Shader "Custom/2DLight"
 		    #include "UnityCG.cginc"
 		     
 		    // User-specified properties
-		    uniform sampler2D _MainTex;
-	  		uniform sampler2D _Particles;
+			uniform sampler2D _MainTex;
+			uniform sampler2D _Particles;
 			uniform sampler2D _Particles2;
-	  		uniform float4 _Particles_ST;
-	  		uniform float4 _Particles2_ST;
-		    uniform fixed4 _Color;
-		    uniform float _ColorFactor;
-		    uniform float _ParticleFactor;
+			uniform float4 _Particles_ST;
+			uniform float4 _Particles2_ST;
+			uniform fixed4 _Color;
+			uniform float _ColorFactor;
+			uniform float _ParticleFactor;
 		     
 		    struct VertexInput
 		    {
-			    float4 vertex : POSITION;
-		   		float4 uv : TEXCOORD0;
-	   			fixed4 color : COLOR;
+				float4 vertex : POSITION;
+				float4 uv : TEXCOORD0;
+				fixed4 color : COLOR;
 		    };
 		     
 		    struct VertexOutput
 		    {
-		  		float4 pos : POSITION;
-	    		float2 uv : TEXCOORD0;
-	    		float2 uv_part : TEXCOORD1;
-	    		float2 uv_part2 : TEXCOORD2;
-		   		fixed4 color : COLOR;
+				float4 pos : POSITION;
+				float2 uv : TEXCOORD0;
+				float2 uv_part : TEXCOORD1;
+				float2 uv_part2 : TEXCOORD2;
+				fixed4 color : COLOR;
 		    };
 		     
 		    VertexOutput vert(VertexInput input)
