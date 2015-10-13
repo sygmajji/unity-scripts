@@ -22,8 +22,8 @@ Shader "Custom/Light"
 			"ForceNoShadowCasting"="True" 
 		}
 		
-	    Pass
-	    {
+		Pass
+		{
 			AlphaTest Greater 0.0	 // Pixel with an alpha of 0 should be ignored
 			Blend DstColor One // Keep deep black values
 			
