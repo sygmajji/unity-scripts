@@ -6,6 +6,10 @@
 	purpose:	Helper class to calculate trajectories.
 	
 *************************************************************************/
+/************************************************************************
+ *   Copyright (C) Charles Mattei and Céline Jolly
+ *
+ ************************************************************************/
 
 using UnityEngine;
 using System.Collections;
@@ -31,8 +35,8 @@ public class Trajectory
 		float time = 0.0f;
 		float horzVelocity = 0.0f;
 		
-		if (height == 0.0f) height = 0.1f; // Prevents division by zero
-		if (gravity == 0.0f) gravity = 0.1f; // Prevents division by zero
+		if (height < 0.1f) height = 0.1f; // Prevents division by zero
+		if (gravity < 0.1f) gravity = 0.1f; // Prevents division by zero
 		
 		// If we are going upward
 		// we will use a direct parabolic trajectory 
@@ -69,7 +73,7 @@ public class Trajectory
 		}
 		
 		// Go right
-		if (target.x - origin.x > 0 && 
+		if (target.x - origin.x > 0.0f && 
 		   !float.IsNaN(vertVelocity) && !float.IsNaN(horzVelocity))
 		{
 			return new Vector2 (horzVelocity, vertVelocity);
